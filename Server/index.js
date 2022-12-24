@@ -8,6 +8,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import {fileURLToPath} from "url";
+import  authRoutes from "./routes/auth.js";
+import {register} from "./controllers/auth.js";
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url); // this is the module that we import that time 
@@ -36,6 +38,13 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+/*authentication aspect*/
+
+/*Route with files */
+app.post("/auth/register", upload.single("picture"),register); //register is the name of the controller, you must first import it 
+
+/*Routes*/
+app.get("/auth",authRoutes);
 
 /* MONGOOSE SETUP*/
 
