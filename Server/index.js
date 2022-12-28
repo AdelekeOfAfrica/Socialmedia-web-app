@@ -9,7 +9,12 @@ import morgan from "morgan";
 import path from "path";
 import {fileURLToPath} from "url";
 import  authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/posts.js";
 import {register} from "./controllers/auth.js";
+import {createPost} from "./controllers/posts.js";
+import { verifyToken } from "./middleware/auth.js";
+
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url); // this is the module that we import that time 
@@ -41,10 +46,13 @@ const upload = multer({ storage });
 /*authentication aspect*/
 
 /*Route with files */
-app.post("/auth/register", upload.single("picture"),register); //register is the name of the controller, you must first import it 
+app.post("/auth/register", upload.single("picture"), register); //register is the name of the controller, you must first import it 
+app.post("/post",verifyToken,upload.single("picture"),createPost);
 
 /*Routes*/
-app.get("/auth",authRoutes);
+app.use("/auth",authRoutes); //this is used for login routes 
+app.use("/users",userRoutes);
+app.use("/post",postRoutes);
 
 /* MONGOOSE SETUP*/
 
