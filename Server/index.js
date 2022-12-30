@@ -70,8 +70,9 @@ mongoose.connect(process.env.MONGO_URL, {
     app.listen(PORT, ()=> console.log(`Server Port: ${PORT}`));
 
     //manually inserting the code into the database please not you can oonly do this onces
-    User.insertMany(users);
-    Post.insertMany(posts);
+    // User.insertMany(users);
+    // Post.insertMany(posts);
+    //if you meet it in comment mode then it has been used 
 
 })
 .catch((error)=>console.log(`${error} did not connect `));
